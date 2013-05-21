@@ -1,0 +1,29 @@
+{
+  "name": "noflo-dom",
+  "description": "Document Object Model components for NoFlo",
+  "author": "Henri Bergius <henri.bergius@iki.fi>",
+  "repo": "bergie/noflo-dom",
+  "version": "0.0.1",
+  "keywords": [
+  ],
+  "dependencies": {
+    "bergie/noflo": "*"
+  },
+  "scripts": [
+    "components/GetElement.coffee",
+    "components/ListenDrag.coffee",
+    "components/ListenMouse.coffee",
+    "components/ListenTouch.coffee"
+  ],
+  "json": [
+    "component.json"
+  ],
+  "noflo": {
+    "components": {
+      "GetElement": "components/GetElement.coffee",
+      "ListenDrag": "components/ListenDrag.coffee",
+      "ListenMouse": "components/ListenMouse.coffee",
+      "ListenTouch": "components/ListenTouch.coffee"
+    }
+  }
+}
