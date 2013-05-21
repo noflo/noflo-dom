@@ -19,16 +19,18 @@ class ListenScroll extends noflo.Component
 
   scroll: (event) =>
     top = window.scrollY
-    bottom = top + window.innerHeight
     left = window.scrollX
-    right = left + window.innerWidth
     @outPorts.top.send top
     @outPorts.top.disconnect()
-    @outPorts.bottom.send bottom
-    @outPorts.bottom.disconnect()
+    if @outPorts.bottom.isAttached()
+      bottom = top + window.innerHeight
+      @outPorts.bottom.send bottom
+      @outPorts.bottom.disconnect()
     @outPorts.left.send left
     @outPorts.left.disconnect()
-    @outPorts.right.send right
-    @outPorts.right.disconnect()
+    if @outPorts.right.isAttached()
+      right = left + window.innerWidth
+      @outPorts.right.send right
+      @outPorts.right.disconnect()
 
 exports.getComponent = -> new ListenScroll
