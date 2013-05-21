@@ -6,3 +6,4 @@ Document Object Model components for NoFlo
 * ListenDrag: drag event listener on an element
 * ListenMouse: mouse event listener on an element
 * ListenTouch: touch event listener on an element
+* MoveElement: move an element by its x, y, and z position

@@ -13,7 +13,8 @@
     "components/GetElement.coffee",
     "components/ListenDrag.coffee",
     "components/ListenMouse.coffee",
-    "components/ListenTouch.coffee"
+    "components/ListenTouch.coffee",
+    "components/MoveElement.coffee"
   ],
   "json": [
     "component.json"
@@ -23,7 +24,8 @@
       "GetElement": "components/GetElement.coffee",
       "ListenDrag": "components/ListenDrag.coffee",
       "ListenMouse": "components/ListenMouse.coffee",
-      "ListenTouch": "components/ListenTouch.coffee"
+      "ListenTouch": "components/ListenTouch.coffee",
+      "MoveElement": "components/MoveElement.coffee"
     }
   }
 }
