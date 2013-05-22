@@ -15,7 +15,8 @@
     "components/ListenMouse.coffee",
     "components/ListenScroll.coffee",
     "components/ListenTouch.coffee",
-    "components/MoveElement.coffee"
+    "components/MoveElement.coffee",
+    "index.js"
   ],
   "json": [
     "component.json"
