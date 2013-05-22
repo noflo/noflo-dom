@@ -1,7 +1,4 @@
-if typeof process is 'object' and process.title is 'node'
-  noflo = require "../../lib/NoFlo"
-else
-  noflo = require '../lib/NoFlo'
+noflo = require 'noflo'
 
 class MoveElement extends noflo.Component
   description: 'Change the coordinates of a DOM element'
