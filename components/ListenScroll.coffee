@@ -6,10 +6,10 @@ class ListenScroll extends noflo.Component
     @inPorts =
       start: new noflo.Port
     @outPorts =
-      top: new noflo.ArrayPort 'number'
-      bottom: new noflo.ArrayPort 'number'
-      left: new noflo.ArrayPort 'number'
-      right: new noflo.ArrayPort 'number'
+      top: new noflo.Port 'number'
+      bottom: new noflo.Port 'number'
+      left: new noflo.Port 'number'
+      right: new noflo.Port 'number'
 
     @inPorts.start.on 'data', =>
       @subscribe()
