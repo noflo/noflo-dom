@@ -5,20 +5,20 @@ describe 'ListenTouch component', ->
   c = null
   element = null
   start = null
-  moveX = null
-  moveY = null
+  movex = null
+  movey = null
   end = null
   beforeEach ->
     c = listenTouch.getComponent()
     element = socket.createSocket()
     start = socket.createSocket()
-    moveX = socket.createSocket()
-    moveY = socket.createSocket()
+    movex = socket.createSocket()
+    movey = socket.createSocket()
     end = socket.createSocket()
     c.inPorts.element.attach element
     c.outPorts.start.attach start
-    c.outPorts.moveX.attach moveX
-    c.outPorts.moveY.attach moveY
+    c.outPorts.movex.attach movex
+    c.outPorts.movey.attach movey
     c.outPorts.end.attach end
 
   describe 'on matched element', ->
@@ -36,9 +36,9 @@ describe 'ListenTouch component', ->
         pageY: 10
       el.dispatchEvent evt
 
-    it 'should transmit a moveX event on touch move', (done) ->
+    it 'should transmit a movex event on touch move', (done) ->
       element.send el
-      moveX.once 'data', (data) ->
+      movex.once 'data', (data) ->
         chai.expect(data).to.equal 5
         done()
       evt = document.createEvent 'UIEvent'
@@ -49,9 +49,9 @@ describe 'ListenTouch component', ->
         pageY: 10
       el.dispatchEvent evt
 
-    it 'should transmit a moveY event on touch move', (done) ->
+    it 'should transmit a movey event on touch move', (done) ->
       element.send el
-      moveY.once 'data', (data) ->
+      movey.once 'data', (data) ->
         chai.expect(data).to.equal 10
         done()
       evt = document.createEvent 'UIEvent'

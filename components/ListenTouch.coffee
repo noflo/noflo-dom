@@ -7,8 +7,8 @@ class ListenTouch extends noflo.Component
       element: new noflo.Port 'object'
     @outPorts =
       start: new noflo.ArrayPort 'object'
-      moveX: new noflo.ArrayPort 'number'
-      moveY: new noflo.ArrayPort 'number'
+      movex: new noflo.ArrayPort 'number'
+      movey: new noflo.ArrayPort 'number'
       end: new noflo.ArrayPort 'object'
 
     @inPorts.element.on 'data', (element) =>
@@ -41,12 +41,12 @@ class ListenTouch extends noflo.Component
     return unless event.changedTouches.length
 
     for touch, idx in event.changedTouches
-      @outPorts.moveX.beginGroup idx
-      @outPorts.moveX.send touch.pageX
-      @outPorts.moveX.endGroup()
-      @outPorts.moveY.beginGroup idx
-      @outPorts.moveY.send touch.pageY
-      @outPorts.moveY.endGroup()
+      @outPorts.movex.beginGroup idx
+      @outPorts.movex.send touch.pageX
+      @outPorts.movex.endGroup()
+      @outPorts.movey.beginGroup idx
+      @outPorts.movey.send touch.pageY
+      @outPorts.movey.endGroup()
 
   touchend: (event) =>
     event.preventDefault()
@@ -55,8 +55,8 @@ class ListenTouch extends noflo.Component
     return unless event.changedTouches
     return unless event.changedTouches.length
 
-    @outPorts.moveX.disconnect() if @outPorts.moveX.isConnected()
-    @outPorts.moveY.disconnect() if @outPorts.moveY.isConnected()
+    @outPorts.movex.disconnect() if @outPorts.movex.isConnected()
+    @outPorts.movey.disconnect() if @outPorts.movey.isConnected()
 
     for touch, idx in event.changedTouches
       @outPorts.end.beginGroup idx

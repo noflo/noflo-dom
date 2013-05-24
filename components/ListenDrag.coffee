@@ -7,8 +7,8 @@ class ListenDrag extends noflo.Component
       element: new noflo.Port 'object'
     @outPorts =
       start: new noflo.ArrayPort 'object'
-      moveX: new noflo.ArrayPort 'number'
-      moveY: new noflo.ArrayPort 'number'
+      movex: new noflo.ArrayPort 'number'
+      movey: new noflo.ArrayPort 'number'
       end: new noflo.ArrayPort 'object'
 
     @inPorts.element.on 'data', (element) =>
@@ -29,15 +29,15 @@ class ListenDrag extends noflo.Component
   dragmove: (event) =>
     event.preventDefault()
     event.stopPropagation()
-    @outPorts.moveX.send event.clientX
-    @outPorts.moveY.send event.clientY
+    @outPorts.movex.send event.clientX
+    @outPorts.movey.send event.clientY
 
   dragend: (event) =>
     event.preventDefault()
     event.stopPropagation()
 
-    @outPorts.moveX.disconnect() if @outPorts.moveX.isConnected()
-    @outPorts.moveY.disconnect() if @outPorts.moveY.isConnected()
+    @outPorts.movex.disconnect() if @outPorts.movex.isConnected()
+    @outPorts.movey.disconnect() if @outPorts.movey.isConnected()
 
     @outPorts.end.send event
     @outPorts.end.disconnect()
