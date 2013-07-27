@@ -23,13 +23,13 @@ class GetElement extends noflo.Component
 
   select: (selector) ->
     if @container
-      el = @container.querySelector selector
+      el = @container.querySelectorAll selector
     else
-      el = document.querySelector selector
-    unless el
+      el = document.querySelectorAll selector
+    unless el.length
       @error "No element matching '#{selector}' found"
       return
-    @outPorts.element.send el
+    @outPorts.element.send element for element in el
     @outPorts.element.disconnect()
 
   error: (msg) ->
