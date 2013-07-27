@@ -16,7 +16,7 @@ class WriteHtml extends noflo.Component
       do writeHtml if @container
     @inPorts.container.on 'data', (data) =>
       @container = data
-      do writeHtml if @html
+      do @writeHtml if @html
 
   writeHtml: ->
     @container.innerHTML = @html
