@@ -13,7 +13,7 @@ class WriteHtml extends noflo.Component
 
     @inPorts.html.on 'data', (data) =>
       @html = data
-      do writeHtml if @container
+      do @writeHtml if @container
     @inPorts.container.on 'data', (data) =>
       @container = data
       do @writeHtml if @html
