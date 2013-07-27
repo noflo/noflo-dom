@@ -12,4 +12,4 @@ class ReadHtml extends noflo.Component
       @outPorts.html.send data.innerHTML
       @outPorts.html.disconnect()
 
-exports.getComponent = new ReadHtml
+exports.getComponent = -> new ReadHtml

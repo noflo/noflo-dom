@@ -22,4 +22,4 @@ class WriteHtml extends noflo.Component
     @container.innerHTML = @html
     @html = null
 
-exports.getComponent = new WriteHtml
+exports.getComponent = -> new WriteHtml
