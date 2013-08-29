@@ -1,7 +1,7 @@
 noflo = require 'noflo'
 
 class ReadHtml extends noflo.Component
-  description: 'Write HTML inside an existing element'
+  description: 'Read HTML from an existing element'
   constructor: ->
     @inPorts =
       container: new noflo.Port 'object'
