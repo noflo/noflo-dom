@@ -15,7 +15,6 @@
     "components/ListenMouse.coffee",
     "components/ListenScroll.coffee",
     "components/ListenTouch.coffee",
-    "components/MoveElement.coffee",
     "components/ReadHtml.coffee",
     "components/WriteHtml.coffee",
     "index.js"
@@ -30,7 +29,6 @@
       "ListenMouse": "components/ListenMouse.coffee",
       "ListenScroll": "components/ListenScroll.coffee",
       "ListenTouch": "components/ListenTouch.coffee",
-      "MoveElement": "components/MoveElement.coffee",
       "WriteHtml": "components/WriteHtml.coffee",
       "ReadHtml": "components/ReadHtml.coffee"
     }
