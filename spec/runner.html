@@ -14,28 +14,12 @@
     <div id="mocha"></div>
     <div id="fixtures">
       <div class="getelement">Foo</div>
-      <div class="listentouch">
-        <div class="target">Target</div>
-        <div class="other">Other</div>
-      </div>
-      <div class="listendrag">
-        <div class="target">Target</div>
-        <div class="other">Other</div>
-      </div>
-      <div class="listenmouse">
-        <div class="target">Target</div>
-        <div class="other">Other</div>
-      </div>
     </div>
     <script src="../browser/noflo-dom.js"></script>
     <script src="http://chaijs.com/chai.js"></script>
     <script src="../node_modules/mocha/mocha.js"></script>
     <script>mocha.setup('bdd');</script>
     <script src="./GetElement.js"></script>
-    <script src="./ListenDrag.js"></script>
-    <script src="./ListenMouse.js"></script>
-    <script src="./ListenScroll.js"></script>
-    <script src="./ListenTouch.js"></script>
     <script>
       if (window.mochaPhantomJS) {
         mochaPhantomJS.run();
