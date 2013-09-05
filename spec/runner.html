@@ -14,12 +14,16 @@
     <div id="mocha"></div>
     <div id="fixtures">
       <div class="getelement">Foo</div>
+      <div class="addclass">Foo</div>
+      <div class="removeclass foo">Foo</div>
     </div>
     <script src="../browser/noflo-dom.js"></script>
     <script src="http://chaijs.com/chai.js"></script>
     <script src="../node_modules/mocha/mocha.js"></script>
     <script>mocha.setup('bdd');</script>
     <script src="./GetElement.js"></script>
+    <script src="./AddClass.js"></script>
+    <script src="./RemoveClass.js"></script>
     <script>
       if (window.mochaPhantomJS) {
         mochaPhantomJS.run();

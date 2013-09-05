@@ -10,9 +10,11 @@
     "noflo/noflo": "*"
   },
   "scripts": [
+    "components/AddClass.coffee",
     "components/GetElement.coffee",
     "components/ReadHtml.coffee",
     "components/WriteHtml.coffee",
+    "components/RemoveClass.coffee",
     "index.js"
   ],
   "json": [
@@ -20,9 +22,11 @@
   ],
   "noflo": {
     "components": {
+      "AddClass": "components/AddClass.coffee",
       "GetElement": "components/GetElement.coffee",
       "WriteHtml": "components/WriteHtml.coffee",
-      "ReadHtml": "components/ReadHtml.coffee"
+      "ReadHtml": "components/ReadHtml.coffee",
+      "RemoveClass": "components/RemoveClass.coffee"
     }
   }
 }
