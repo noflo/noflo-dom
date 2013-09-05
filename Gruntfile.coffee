@@ -81,6 +81,16 @@ module.exports = ->
               browserName: 'chrome'
             ,
               browserName: 'firefox'
+            ,
+              browserName: 'safari'
+              platform: 'OS X 10.8'
+              version: '6'
+            ,
+              browserName: 'opera'
+            ,
+              browserName: 'internet explorer'
+              platform: 'WIN8'
+              version: '10'
           ]
           build: process.env.TRAVIS_JOB_ID
           testname: 'noflo-dom browser tests'
