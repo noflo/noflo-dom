@@ -66,6 +66,28 @@ module.exports = ->
     coffeelint:
       components: ['components/*.coffee']
 
+    # Cross-browser testing
+    connect:
+      server:
+        options:
+          base: ''
+          port: 9999
+
+    'saucelabs-mocha':
+      all:
+        options:
+          urls: ['http://127.0.0.1:9999/spec/runner.html']
+          browsers: [
+              browserName: 'chrome'
+            ,
+              browserName: 'firefox'
+          ]
+          build: process.env.TRAVIS_JOB_ID
+          testname: 'noflo-dom browser tests'
+          tunnelTimeout: 5
+          concurrency: 3
+          detailedError: true
+
   # Grunt plugins used for building
   @loadNpmTasks 'grunt-contrib-coffee'
   @loadNpmTasks 'grunt-component'
@@ -77,6 +99,10 @@ module.exports = ->
   @loadNpmTasks 'grunt-contrib-watch'
   @loadNpmTasks 'grunt-mocha-phantomjs'
   @loadNpmTasks 'grunt-coffeelint'
+
+  # Grunt plugins used for browser testing
+  @loadNpmTasks 'grunt-contrib-connect'
+  @loadNpmTasks 'grunt-saucelabs'
 
   # Our local tasks
   @registerTask 'build', 'Build NoFlo for the chosen target platform', (target = 'all') =>
@@ -95,5 +121,7 @@ module.exports = ->
       @task.run 'component_build'
       @task.run 'combine'
       @task.run 'mocha_phantomjs'
+
+  @registerTask 'crossbrowser', 'Run tests on real browsers', ['test', 'connect', 'saucelabs-mocha']
 
   @registerTask 'default', ['test']
