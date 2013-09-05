@@ -11,6 +11,7 @@
   },
   "scripts": [
     "components/AddClass.coffee",
+    "components/CreateFragment.coffee",
     "components/GetElement.coffee",
     "components/ReadHtml.coffee",
     "components/WriteHtml.coffee",
@@ -23,6 +24,7 @@
   "noflo": {
     "components": {
       "AddClass": "components/AddClass.coffee",
+      "CreateFragment": "components/CreateFragment.coffee",
       "GetElement": "components/GetElement.coffee",
       "WriteHtml": "components/WriteHtml.coffee",
       "ReadHtml": "components/ReadHtml.coffee",
