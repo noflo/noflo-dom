@@ -9,7 +9,8 @@ class WriteHtml extends noflo.Component
     @inPorts =
       html: new noflo.Port 'string'
       container: new noflo.Port 'object'
-    @outPorts = {}
+    @outPorts =
+      container: new noflo.Port 'object'
 
     @inPorts.html.on 'data', (data) =>
       @html = data
@@ -21,5 +22,9 @@ class WriteHtml extends noflo.Component
   writeHtml: ->
     @container.innerHTML = @html
     @html = null
+
+    if @outPorts.container.isAttached()
+      @outPorts.container.send @container
+      @outPorts.container.disconnect()
 
 exports.getComponent = -> new WriteHtml
