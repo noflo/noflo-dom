@@ -24,15 +24,15 @@ class RequestAnimationFrame extends noflo.Component
       frame: new noflo.Port 'bang'
 
     @inPorts.start.on 'data', (data) =>
-      @animate
       @running = true
+      @animate()
 
     @inPorts.stop.on 'data', (data) =>
       @running = false
 
   animate: ->
     if @running
-      requestAnimationFrame @animate
+      requestAnimationFrame @animate.bind(@)
       @outPorts.frame.send true
 
 exports.getComponent = -> new RequestAnimationFrame
