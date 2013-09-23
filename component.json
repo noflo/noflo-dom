@@ -10,12 +10,15 @@
     "noflo/noflo": "*"
   },
   "scripts": [
+    "components/AddClass.coffee",
+    "components/AppendChild.coffee",
+    "components/CreateElement.coffee",
+    "components/CreateFragment.coffee",
+    "components/GetAttribute.coffee",
     "components/GetElement.coffee",
-    "components/ListenDrag.coffee",
-    "components/ListenMouse.coffee",
-    "components/ListenScroll.coffee",
-    "components/ListenTouch.coffee",
-    "components/MoveElement.coffee",
+    "components/ReadHtml.coffee",
+    "components/WriteHtml.coffee",
+    "components/RemoveClass.coffee",
     "components/RequestAnimationFrame.coffee",
     "index.js"
   ],
@@ -24,12 +27,15 @@
   ],
   "noflo": {
     "components": {
+      "AddClass": "components/AddClass.coffee",
+      "AppendChild": "components/AppendChild.coffee",
+      "CreateElement": "components/CreateElement.coffee",
+      "CreateFragment": "components/CreateFragment.coffee",
+      "GetAttribute": "components/GetAttribute.coffee",
       "GetElement": "components/GetElement.coffee",
-      "ListenDrag": "components/ListenDrag.coffee",
-      "ListenMouse": "components/ListenMouse.coffee",
-      "ListenScroll": "components/ListenScroll.coffee",
-      "ListenTouch": "components/ListenTouch.coffee",
-      "MoveElement": "components/MoveElement.coffee",
+      "WriteHtml": "components/WriteHtml.coffee",
+      "ReadHtml": "components/ReadHtml.coffee",
+      "RemoveClass": "components/RemoveClass.coffee",
       "RequestAnimationFrame": "components/RequestAnimationFrame.coffee"
     }
   }
