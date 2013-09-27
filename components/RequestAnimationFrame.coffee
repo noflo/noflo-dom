@@ -21,7 +21,7 @@ class RequestAnimationFrame extends noflo.Component
       start: new noflo.Port 'bang'
       stop: new noflo.Port 'bang'
     @outPorts =
-      frame: new noflo.Port 'bang'
+      out: new noflo.Port 'bang'
 
     @inPorts.start.on 'data', (data) =>
       @running = true
@@ -33,6 +33,6 @@ class RequestAnimationFrame extends noflo.Component
   animate: ->
     if @running
       requestAnimationFrame @animate.bind(@)
-      @outPorts.frame.send true
+      @outPorts.out.send true
 
 exports.getComponent = -> new RequestAnimationFrame
