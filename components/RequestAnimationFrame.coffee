@@ -35,4 +35,7 @@ class RequestAnimationFrame extends noflo.Component
       requestAnimationFrame @animate.bind(@)
       @outPorts.out.send true
 
+  shutdown: ->
+    @running = false
+
 exports.getComponent = -> new RequestAnimationFrame
