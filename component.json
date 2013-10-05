@@ -18,6 +18,7 @@
     "components/GetElement.coffee",
     "components/HasClass.coffee",
     "components/ReadHtml.coffee",
+    "components/SetAttribute.coffee",
     "components/WriteHtml.coffee",
     "components/RemoveClass.coffee",
     "components/RequestAnimationFrame.coffee",
@@ -37,6 +38,7 @@
       "HasClass": "components/HasClass.coffee",
       "WriteHtml": "components/WriteHtml.coffee",
       "ReadHtml": "components/ReadHtml.coffee",
+      "SetAttribute": "components/SetAttribute.coffee",
       "RemoveClass": "components/RemoveClass.coffee",
       "RequestAnimationFrame": "components/RequestAnimationFrame.coffee"
     }
