@@ -28,6 +28,7 @@
     "component.json"
   ],
   "noflo": {
+    "icon": "html5",
     "components": {
       "AddClass": "components/AddClass.coffee",
       "AppendChild": "components/AppendChild.coffee",
