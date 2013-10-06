@@ -13,7 +13,7 @@ requestAnimationFrame =
 
 class RequestAnimationFrame extends noflo.Component
   description: 'Sends bangs that correspond with screen refresh rate.'
-  icon: 'repeat'
+  icon: 'film'
 
   constructor: ->
     @running = false
