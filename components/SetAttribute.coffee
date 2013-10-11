@@ -17,7 +17,8 @@ class SetAttribute extends noflo.Component
       do @setAttribute if @attribute and @value
     @inPorts.attribute.on 'data', (@attribute) =>
       do @setAttribute if @element and @value
-    @inPorts.value.on 'data', (@value) =>
+    @inPorts.value.on 'data', (value) =>
+      @value = @normalizeValue value
       do @setAttribute if @attribute and @element
 
   setAttribute: ->
@@ -27,5 +28,15 @@ class SetAttribute extends noflo.Component
     if @outPorts.element.isAttached()
       @outPorts.element.send @element
       @outPorts.element.disconnect()
+
+  normalizeValue: (value) ->
+    if typeof value is 'object'
+      if toString.call(value) is '[object Array]'
+        return value.join ' '
+      newVal = ''
+      for key, val of value
+        newVal += " #{val}"
+      return newVal
+    return value
 
 exports.getComponent = -> new SetAttribute
