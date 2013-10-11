@@ -31,12 +31,11 @@ class SetAttribute extends noflo.Component
 
   normalizeValue: (value) ->
     if typeof value is 'object'
-      if toString.call(value) is '[object Array]'
-        return value.join ' '
-      newVal = ''
-      for key, val of value
-        newVal += " #{val}"
-      return newVal
+      unless toString.call(value) is '[object Array]'
+        newVal = []
+        newVal.push val for key, val of value
+        value = newVal
+      return value.join ' '
     return value
 
 exports.getComponent = -> new SetAttribute
