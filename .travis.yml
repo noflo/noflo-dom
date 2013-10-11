@@ -6,5 +6,5 @@ before_script:
 script: grunt crossbrowser
 env:
   global:
-  - secure: H+IC/W6E/sofiKTJVausamUmUaBaRGY7nJMNH2d72bWVRETTjUM+dPv2aPAkeG48F2kD9yQsQb+10tblqoPq3p8ehJe2oSyyr1W4IigUTxt9mV3vQOA+dgTIBtU6mtHnGY49yHebfty3BmcVi3A0cP7YBQ35YMVsgLTOIZbl3R8=
-  - secure: PSHBwG46Gkh3mvDXrdI60f3DbtCVHa+icBpNU891TxNFskgajk/1W2SNPk0ca40Mrc+C2LDqro//V3c0hEUKm90ulhgo/uLHXSL7I/ffYtsPbNq6RpQV/GJfUwWIPb1GVWjvK3lRvhiKthKd8p3pB5yNzf5EeKVryx4Kz08y1TU=
+  - secure: EdP2B+bC5503kKKidzTNiVrSW2eVUIfRC0vf2XaJCqMxv2mgG5M7ADGOkDER1jTd1SSpV6prNoy9aJOv82IZTE7KLmvSHM9lfAD51R0a+O0t1xJCMnP+6kOgdjhwrrZU7VkhXsqsexdniNu6I3s+xOu2rcJqTmrkyltp6QaqOe4=
+  - secure: rWycI5eJnmj/0H0oUvrB6mSPbN0BaAbw9IpMl0tIEgfxEOXJsUnP6ceYHatlxDQwuT43vL6Dkq1wNeGn65zZyLhWWQSG+zGqUtR3sfZBm6k0PRYLlLRs/gE92KWBHKauvz5yAX6yMgBoHwxk0bAOaYb2nDbn19MNFLakYgXvXIo=
