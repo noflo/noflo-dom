@@ -4,8 +4,7 @@
   "author": "Henri Bergius <henri.bergius@iki.fi>",
   "repo": "noflo/noflo-dom",
   "version": "0.0.1",
-  "keywords": [
-  ],
+  "keywords": [],
   "dependencies": {
     "noflo/noflo": "*"
   },
@@ -38,12 +37,12 @@
       "GetAttribute": "components/GetAttribute.coffee",
       "GetElement": "components/GetElement.coffee",
       "HasClass": "components/HasClass.coffee",
-      "WriteHtml": "components/WriteHtml.coffee",
       "ReadHtml": "components/ReadHtml.coffee",
-      "RemoveElement": "components/RemoveElement.coffee",
-      "SetAttribute": "components/SetAttribute.coffee",
       "RemoveClass": "components/RemoveClass.coffee",
-      "RequestAnimationFrame": "components/RequestAnimationFrame.coffee"
+      "RemoveElement": "components/RemoveElement.coffee",
+      "RequestAnimationFrame": "components/RequestAnimationFrame.coffee",
+      "SetAttribute": "components/SetAttribute.coffee",
+      "WriteHtml": "components/WriteHtml.coffee"
     }
   }
 }
