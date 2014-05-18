@@ -50,6 +50,7 @@
       "GetAttribute": "components/GetAttribute.coffee",
       "GetElement": "components/GetElement.coffee",
       "HasClass": "components/HasClass.coffee",
+      "Listen": "components/Listen.coffee",
       "ReadHtml": "components/ReadHtml.coffee",
       "RemoveClass": "components/RemoveClass.coffee",
       "RemoveElement": "components/RemoveElement.coffee",
