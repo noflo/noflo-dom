@@ -10,15 +10,18 @@ exports.getComponent = ->
 
   # Define in ports.
   c.inPorts.add 'element',
+    datatype: 'object'
     description: 'The element from which to read the attribute from.'
     required: true
 
   c.inPorts.add 'attribute',
+    datatype: 'string'
     description: 'The attribute which is read from the DOM element.'
     required: true
 
   # Define out ports.
   c.outPorts.add 'out',
+    datatype: 'string'
     description: 'Value of the attribute being read.'
 
   # On data flow.
