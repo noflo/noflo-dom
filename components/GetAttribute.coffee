@@ -1,28 +1,35 @@
+'use strict'
+
 noflo = require 'noflo'
 
-class GetAttribute extends noflo.Component
-  constructor: ->
-    @attribute = null
-    @element = null
-    @inPorts =
-      element: new noflo.Port 'object'
-      attribute: new noflo.Port 'string'
-    @outPorts =
-      out: new noflo.Port 'string'
 
-    @inPorts.element.on 'data', (data) =>
-      @element = data
-      do @getAttribute if @attribute
+exports.getComponent = ->
+  c = new noflo.Component
+  c.description = "Reads the given attribute from the DOM element on the in
+    port."
 
-    @inPorts.attribute.on 'data', (data) =>
-      @attribute = data
-      do @getAttribute if @element
+  # Define in ports.
+  c.inPorts.add 'element',
+    description: 'The element from which to read the attribute from.'
+    required: true
 
-  getAttribute: ->
-    value = @element.getAttribute @attribute
-    @outPorts.out.beginGroup @attribute
-    @outPorts.out.send value
-    @outPorts.out.endGroup()
-    @outPorts.out.disconnect()
+  c.inPorts.add 'attribute',
+    description: 'The attribute which is read from the DOM element.'
+    required: true
 
-exports.getComponent = -> new GetAttribute
+  # Define out ports.
+  c.outPorts.add 'out',
+    description: 'Value of the attribute being read.'
+
+  # On data flow.
+  noflo.helpers.WirePattern c,
+    in: ['element']
+    out: ['out']
+    params: ['attribute']
+    forwardGroups: true
+  ,
+    (data, groups, out) ->
+      attr = c.params.attribute
+      value = data.getAttribute attr
+
+      out.send value
