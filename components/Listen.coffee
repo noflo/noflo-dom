@@ -40,6 +40,7 @@ class Listen extends noflo.Component
     element.addEventListener type, @change
 
   change: (event) =>
+    event.preventDefault()
     if @outPorts.element.isAttached()
       @outPorts.element.send @element
     if @outPorts.event.isAttached()
