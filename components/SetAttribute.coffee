@@ -44,7 +44,10 @@ exports.getComponent = ->
           newVal = []
           newVal.push val for key, val of value
           value = newVal.join ' '
-      data.element.setAttribute attr, value
+      if attr == "value"
+        data.element.value = value
+      else
+        data.element.setAttribute attr, value
 
       out.send data.element
   
