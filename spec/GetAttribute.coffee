@@ -1,4 +1,4 @@
-GetAttribute = require 'noflo-dom/components/GetAttribute.js'
+GetAttribute = require 'noflo-dom/components/GetAttribute'
 socket = require('noflo').internalSocket
 
 describe 'GetAttribute component', ->
