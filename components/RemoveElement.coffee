@@ -5,7 +5,7 @@ class RemoveElement extends noflo.Component
   constructor: ->
     @inPorts =
       element: new noflo.Port 'object'
-    @inPorts.element.on 'data', (element) =>
+    @inPorts.element.on 'data', (element) ->
       return unless element.parentNode
       element.parentNode.removeChild element
 

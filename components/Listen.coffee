@@ -7,10 +7,12 @@ class Listen extends noflo.Component
   constructor: ->
     @element = null
     @type = null
+    @preventDefault = false
 
     @inPorts =
       element: new noflo.Port 'object'
       type: new noflo.Port 'string'
+      preventdefault: new noflo.Port 'boolean'
     @outPorts =
       element: new noflo.Port 'object'
       event: new noflo.Port 'object'
@@ -33,6 +35,9 @@ class Listen extends noflo.Component
       if @element
         @subscribe @element, @type
 
+    @inPorts.preventdefault.on 'data', (data) =>
+      @preventDefault = data
+
   unsubscribe: (element, type) ->
     element.removeEventListener type, @change
 
@@ -40,6 +45,8 @@ class Listen extends noflo.Component
     element.addEventListener type, @change
 
   change: (event) =>
+    if @preventDefault
+      event.preventDefault()
     if @outPorts.element.isAttached()
       @outPorts.element.send @element
     if @outPorts.event.isAttached()
