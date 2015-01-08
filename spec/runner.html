@@ -18,6 +18,7 @@
       <div class="addclass">Foo</div>
       <div class="appendchild"></div>
       <div class="removeclass foo">Foo</div>
+      <div class="setattribute" foo="bar"></div>
     </div>
     <script src="../browser/noflo-dom.js"></script>
     <script src="http://chaijs.com/chai.js"></script>
@@ -30,6 +31,7 @@
     <script src="./GetAttribute.js"></script>
     <script src="./GetElement.js"></script>
     <script src="./RemoveClass.js"></script>
+    <script src="./SetAttribute.js"></script>
     <script>
       if (window.mochaPhantomJS) {
         mochaPhantomJS.run();
