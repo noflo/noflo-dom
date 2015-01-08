@@ -78,7 +78,7 @@ module.exports = ->
           build: process.env.TRAVIS_JOB_ID
           testname: 'noflo-dom browser tests'
           tunnelTimeout: 5
-          concurrency: 3
+          concurrency: 1
           detailedError: true
 
   # Grunt plugins used for building
