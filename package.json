@@ -29,7 +29,7 @@
     "grunt-mocha-phantomjs": "~0.2.2",
     "grunt-contrib-uglify": "~0.2.0",
     "grunt-contrib-watch": "~0.3.1",
-    "grunt-contrib-connect": "~0.4.1",
+    "grunt-contrib-connect": "~1.0.2",
     "grunt-saucelabs": "^8.2.0",
     "grunt-noflo-manifest": "^0.1.5",
     "grunt-noflo-browser": "^0.1.2"
