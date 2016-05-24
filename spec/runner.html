@@ -21,9 +21,14 @@
       <div class="setattribute" foo="bar"></div>
     </div>
     <script src="../browser/noflo-dom.js"></script>
-    <script src="http://chaijs.com/chai.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
     <script src="../node_modules/mocha/mocha.js"></script>
-    <script>mocha.setup('bdd');</script>
+    <script>
+      if (window.initMochaPhantomJS) {
+        window.initMochaPhantomJS();
+      }
+      mocha.setup('bdd');
+    </script>
     <script src="./AddClass.js"></script>
     <script src="./AppendChild.js"></script>
     <script src="./CreateElement.js"></script>
@@ -33,30 +38,7 @@
     <script src="./RemoveClass.js"></script>
     <script src="./SetAttribute.js"></script>
     <script>
-      if (window.mochaPhantomJS) {
-        mochaPhantomJS.run();
-      } else {
-        var runner = mocha.run();
-        runner.on('end', function(){
-          window.mochaResults = runner.stats;
-          window.mochaResults.reports = failedTests;
-        });
-
-        runner.on('fail', logFailure);
-
-        function logFailure(test, err){
-          var flattenTitles = function(test){
-            var titles = [];
-            while (test.parent.title){
-              titles.push(test.parent.title);
-              test = test.parent;
-            }
-            return titles.reverse();
-          };
-
-          failedTests.push({name: test.title, result: false, message: err.message, stack: err.stack, titles: flattenTitles(test) });
-        }
-      }
+      mocha.run();
     </script>
   </body>
 </html>
