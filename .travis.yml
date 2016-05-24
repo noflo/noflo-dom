@@ -8,3 +8,11 @@ env:
   global:
   - secure: EdP2B+bC5503kKKidzTNiVrSW2eVUIfRC0vf2XaJCqMxv2mgG5M7ADGOkDER1jTd1SSpV6prNoy9aJOv82IZTE7KLmvSHM9lfAD51R0a+O0t1xJCMnP+6kOgdjhwrrZU7VkhXsqsexdniNu6I3s+xOu2rcJqTmrkyltp6QaqOe4=
   - secure: rWycI5eJnmj/0H0oUvrB6mSPbN0BaAbw9IpMl0tIEgfxEOXJsUnP6ceYHatlxDQwuT43vL6Dkq1wNeGn65zZyLhWWQSG+zGqUtR3sfZBm6k0PRYLlLRs/gE92KWBHKauvz5yAX6yMgBoHwxk0bAOaYb2nDbn19MNFLakYgXvXIo=
+deploy:
+  provider: npm
+  email: henri.bergius@iki.fi
+  api_key:
+    secure: eXoodOwCvk/5mZs1CVwlWQ4DNR2iMIsvCTWhpCoPP15kltIMF2qfsQ211iJya5uELbqvz+fQt6uz89iBpATHpvNBlOt4YjY1InsOWtho3+iU0NZgFQdgHhQUqhR70eV0Bjkl/yzN3MUesHHMhTSa3ReWGUdcnpFjXLDD6P6fMxE=
+  on:
+    tags: true
+    repo: noflo/noflo-dom
