@@ -1,7 +1,7 @@
 {
   "name": "noflo-dom",
   "description": "Document Object Model components for NoFlo",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": {
     "name": "Henri Bergius",
     "email": "henri.bergius@iki.fi"
@@ -35,6 +35,7 @@
     "test": "grunt test"
   },
   "noflo": {
+    "icon": "html5",
     "components": {
       "AddClass": "components/AddClass.coffee",
       "AppendChild": "components/AppendChild.coffee",
