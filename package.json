@@ -10,12 +10,7 @@
     "type": "git",
     "url": "git://github.com/bergie/noflo-dom.git"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "undefined/blob/master/LICENSE-MIT"
-    }
-  ],
+  "license": "MIT",
   "dependencies": {
     "noflo": "~0.6.0"
   },
@@ -35,7 +30,7 @@
     "grunt-noflo-manifest": "^0.1.5",
     "grunt-noflo-browser": "^0.1.2"
   },
-  "keywords": [],
+  "keywords": ["noflo"],
   "scripts": {
     "test": "grunt test"
   },
