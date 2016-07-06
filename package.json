@@ -24,13 +24,14 @@
     "grunt-mocha-phantomjs": "~3.0.0",
     "grunt-contrib-uglify": "~1.0.1",
     "grunt-contrib-watch": "~1.0.0",
-    "grunt-contrib-connect": "~1.0.1",
     "grunt-contrib-connect": "~1.0.2",
-    "grunt-saucelabs": "^8.2.0",
+    "grunt-saucelabs": "^9.0.0",
     "grunt-noflo-manifest": "^0.1.5",
     "grunt-noflo-browser": "^0.1.2"
   },
-  "keywords": ["noflo"],
+  "keywords": [
+    "noflo"
+  ],
   "scripts": {
     "test": "grunt test"
   },
