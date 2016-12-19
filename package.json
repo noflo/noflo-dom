@@ -27,7 +27,7 @@
     "grunt-contrib-connect": "~1.0.2",
     "grunt-saucelabs": "^9.0.0",
     "grunt-noflo-manifest": "^0.1.5",
-    "grunt-noflo-browser": "^0.1.2"
+    "grunt-noflo-browser": "^1.0.1"
   },
   "keywords": [
     "noflo"
