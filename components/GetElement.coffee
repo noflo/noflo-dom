@@ -1,5 +1,7 @@
 noflo = require 'noflo'
 
+# @runtime noflo-browser
+
 class GetElement extends noflo.Component
   description: 'Get a DOM element matching a query'
   constructor: ->

@@ -1,5 +1,7 @@
 noflo = require 'noflo'
 
+# @runtime noflo-browser
+
 class WriteHtml extends noflo.Component
   description: 'Write HTML inside an existing element'
   constructor: ->

@@ -1,16 +1,20 @@
-CreateElement = require 'noflo-dom/components/CreateElement.js'
-socket = require('noflo').internalSocket
+noflo = require 'noflo'
+baseDir = 'noflo-dom'
 
 describe 'CreateElement component', ->
   c = null
   tagname = null
   element = null
-  beforeEach ->
-    c = CreateElement.getComponent()
-    tagname = socket.createSocket()
-    element = socket.createSocket()
-    c.inPorts.tagname.attach tagname
-    c.outPorts.element.attach element
+  before (done) ->
+    loader = new noflo.ComponentLoader baseDir
+    loader.load 'dom/CreateElement', (err, instance) ->
+      return done err if err
+      c = instance
+      tagname = noflo.internalSocket.createSocket()
+      element = noflo.internalSocket.createSocket()
+      c.inPorts.tagname.attach tagname
+      c.outPorts.element.attach element
+      done()
 
   describe 'creating an Element', ->
     it 'should produce a new element', (done) ->

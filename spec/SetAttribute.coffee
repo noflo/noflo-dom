@@ -1,5 +1,5 @@
-SetAttribute = require 'noflo-dom/components/SetAttribute.js'
-socket = require('noflo').internalSocket
+noflo = require 'noflo'
+baseDir = 'noflo-dom'
 
 describe 'SetAttribute component', ->
   c = null
@@ -8,16 +8,24 @@ describe 'SetAttribute component', ->
   value = null
   out = null
   el = document.querySelector '#fixtures .setattribute'
+  before (done) ->
+    loader = new noflo.ComponentLoader baseDir
+    loader.load 'dom/SetAttribute', (err, instance) ->
+      return done err if err
+      c = instance
+      element = noflo.internalSocket.createSocket()
+      attribute = noflo.internalSocket.createSocket()
+      value = noflo.internalSocket.createSocket()
+      c.inPorts.element.attach element
+      c.inPorts.attribute.attach attribute
+      c.inPorts.value.attach value
+      done()
   beforeEach ->
-    c = SetAttribute.getComponent()
-    element = socket.createSocket()
-    attribute = socket.createSocket()
-    value = socket.createSocket()
-    out = socket.createSocket()
-    c.inPorts.element.attach element
-    c.inPorts.attribute.attach attribute
-    c.inPorts.value.attach value
+    out = noflo.internalSocket.createSocket()
     c.outPorts.element.attach out
+  afterEach ->
+    c.outPorts.element.detach out
+    out = null
 
   describe 'when called', ->
     it 'should return element', (done) ->

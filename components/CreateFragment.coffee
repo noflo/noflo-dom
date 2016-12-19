@@ -1,5 +1,7 @@
 noflo = require 'noflo'
 
+# @runtime noflo-browser
+
 class CreateFragment extends noflo.Component
   description: 'Create a new DOM DocumentFragment'
   constructor: ->

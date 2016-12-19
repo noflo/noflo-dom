@@ -1,5 +1,7 @@
 noflo = require 'noflo'
 
+# @runtime noflo-browser
+
 class Listen extends noflo.Component
   description: 'addEventListener for specified event type'
   icon: 'stethoscope'
