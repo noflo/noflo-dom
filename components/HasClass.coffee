@@ -1,5 +1,7 @@
 noflo = require 'noflo'
 
+# @runtime noflo-browser
+
 class HasClass extends noflo.Component
   description: 'Check if an element has a given class'
   constructor: ->

@@ -1,5 +1,7 @@
 noflo = require 'noflo'
 
+# @runtime noflo-browser
+
 class AddClass extends noflo.Component
   description: 'Add a class to an element'
   constructor: ->

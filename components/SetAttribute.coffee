@@ -1,5 +1,7 @@
 'use strict'
 
+# @runtime noflo-browser
+
 noflo = require 'noflo'
 
 exports.getComponent = ->

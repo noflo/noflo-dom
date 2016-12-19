@@ -2,6 +2,7 @@
 
 noflo = require 'noflo'
 
+# @runtime noflo-browser
 
 exports.getComponent = ->
   c = new noflo.Component

@@ -1,5 +1,7 @@
 noflo = require 'noflo'
 
+# @runtime noflo-browser
+
 class RemoveElement extends noflo.Component
   description: 'Remove an element from DOM'
   constructor: ->

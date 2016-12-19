@@ -1,5 +1,7 @@
 noflo = require 'noflo'
 
+# @runtime noflo-browser
+
 requestAnimationFrame =
   window.requestAnimationFrame       ||
   window.webkitRequestAnimationFrame ||

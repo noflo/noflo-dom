@@ -1,5 +1,7 @@
 noflo = require 'noflo'
 
+# @runtime noflo-browser
+
 class ReadHtml extends noflo.Component
   description: 'Read HTML from an existing element'
   constructor: ->

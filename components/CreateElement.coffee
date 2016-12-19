@@ -1,5 +1,7 @@
 noflo = require 'noflo'
 
+# @runtime noflo-browser
+
 class CreateElement extends noflo.Component
   description: 'Create a new DOM Element'
   constructor: ->
