@@ -1,16 +1,21 @@
-AppendChild = require 'noflo-dom/components/AppendChild.js'
-socket = require('noflo').internalSocket
+noflo = require 'noflo'
+baseDir = 'noflo-dom'
 
 describe 'AppendChild component', ->
   c = null
   parent = null
   child = null
-  beforeEach ->
-    c = AppendChild.getComponent()
-    parent = socket.createSocket()
-    child = socket.createSocket()
-    c.inPorts.parent.attach parent
-    c.inPorts.child.attach child
+  before (done) ->
+    @timeout 4000
+    loader = new noflo.ComponentLoader baseDir
+    loader.load 'dom/AppendChild', (err, instance) ->
+      return done err if err
+      c = instance
+      parent = noflo.internalSocket.createSocket()
+      child = noflo.internalSocket.createSocket()
+      c.inPorts.parent.attach parent
+      c.inPorts.child.attach child
+      done()
 
   describe 'adding children to an element', ->
     el = document.querySelector '#fixtures .appendchild'

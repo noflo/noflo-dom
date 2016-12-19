@@ -1,5 +1,5 @@
-getelement = require 'noflo-dom/components/GetElement.js'
-socket = require('noflo').internalSocket
+noflo = require 'noflo'
+baseDir = 'noflo-dom'
 
 describe 'GetElement component', ->
   c = null
@@ -7,21 +7,31 @@ describe 'GetElement component', ->
   selector = null
   element = null
   error = null
+  before (done) ->
+    loader = new noflo.ComponentLoader baseDir
+    loader.load 'dom/GetElement', (err, instance) ->
+      return done err if err
+      c = instance
+      ins = noflo.internalSocket.createSocket()
+      selector = noflo.internalSocket.createSocket()
+      c.inPorts.in.attach ins
+      c.inPorts.selector.attach selector
+      done()
   beforeEach ->
-    c = getelement.getComponent()
-    ins = socket.createSocket()
-    selector = socket.createSocket()
-    element = socket.createSocket()
-    error = socket.createSocket()
-    c.inPorts.in.attach ins
-    c.inPorts.selector.attach selector
+    element = noflo.internalSocket.createSocket()
     c.outPorts.element.attach element
+    error = noflo.internalSocket.createSocket()
+  afterEach ->
+    c.outPorts.element.detach element
+    element = null
+    c.outPorts.error.detach error
+    error = null
 
   describe 'with non-matching query', ->
     it 'should throw an error when ERROR port is not attached', ->
       chai.expect(-> selector.send 'Foo').to.throw Error
     it 'should transmit an Error when ERROR port is attached', (done) ->
-      error.once 'data', (data) ->
+      error.on 'data', (data) ->
         chai.expect(data).to.be.an.instanceof Error
         done()
       c.outPorts.error.attach error
@@ -31,7 +41,7 @@ describe 'GetElement component', ->
     it 'should throw an error when ERROR port is not attached', ->
       chai.expect(-> ins.send {}).to.throw Error
     it 'should transmit an Error when ERROR port is attached', (done) ->
-      error.once 'data', (data) ->
+      error.on 'data', (data) ->
         chai.expect(data).to.be.an.instanceof Error
         done()
       c.outPorts.error.attach error
@@ -41,7 +51,7 @@ describe 'GetElement component', ->
     it 'should throw an error when ERROR port is not attached', ->
       chai.expect(-> ins.send {}).to.throw Error
     it 'should transmit an Error when ERROR port is attached', (done) ->
-      error.once 'data', (data) ->
+      error.on 'data', (data) ->
         chai.expect(data).to.be.an.instanceof Error
         done()
       c.outPorts.error.attach error
@@ -51,7 +61,7 @@ describe 'GetElement component', ->
     it 'should send the matched element to the ELEMENT port', (done) ->
       query = '#fixtures .getelement'
       el = document.querySelector query
-      element.once 'data', (data) ->
+      element.on 'data', (data) ->
         chai.expect(data.tagName).to.exist
         chai.expect(data.tagName).to.equal 'DIV'
         chai.expect(data.innerHTML).to.equal 'Foo'
@@ -63,7 +73,7 @@ describe 'GetElement component', ->
     it 'should send the matched element to the ELEMENT port', (done) ->
       container = document.querySelector '#fixtures'
       el = document.querySelector '#fixtures .getelement'
-      element.once 'data', (data) ->
+      element.on 'data', (data) ->
         chai.expect(data.tagName).to.exist
         chai.expect(data.tagName).to.equal 'DIV'
         chai.expect(data.innerHTML).to.equal 'Foo'

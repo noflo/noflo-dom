@@ -1,16 +1,21 @@
-AddClass = require 'noflo-dom/components/AddClass.js'
-socket = require('noflo').internalSocket
+noflo = require 'noflo'
+baseDir = 'noflo-dom'
 
 describe 'AddClass component', ->
   c = null
   element = null
   classSocket = null
-  beforeEach ->
-    c = AddClass.getComponent()
-    element = socket.createSocket()
-    classSocket = socket.createSocket()
-    c.inPorts.element.attach element
-    c.inPorts.class.attach classSocket
+  before (done) ->
+    @timeout 4000
+    loader = new noflo.ComponentLoader baseDir
+    loader.load 'dom/AddClass', (err, instance) ->
+      return done err if err
+      c = instance
+      element = noflo.internalSocket.createSocket()
+      classSocket = noflo.internalSocket.createSocket()
+      c.inPorts.element.attach element
+      c.inPorts.class.attach classSocket
+      done()
 
   describe 'adding a class to an element', ->
     el = document.querySelector '#fixtures .addclass'
