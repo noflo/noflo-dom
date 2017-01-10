@@ -54,4 +54,9 @@ class Listen extends noflo.Component
     if @outPorts.event.isAttached()
       @outPorts.event.send event
 
+  shutdown: ->
+    return unless @element
+    return unless @type
+    @unsubscribe @element, @type
+
 exports.getComponent = -> new Listen
