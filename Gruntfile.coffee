@@ -8,6 +8,21 @@ module.exports = ->
       build:
         files:
           'browser/noflo-dom.js': ['package.json']
+    # Generate runner.html
+    noflo_browser_mocha:
+      all:
+        options:
+          scripts: ["../browser/<%=pkg.name%>.js"]
+          fixtures: """
+            <div class="getattribute" foo="bar"></div>
+            <div class="getelement">Foo</div>
+            <div class="addclass">Foo</div>
+            <div class="appendchild"></div>
+            <div class="removeclass foo">Foo</div>
+            <div class="setattribute" foo="bar"></div>
+          """
+        files:
+          'spec/runner.html': ['spec/*.js', '!spec/fbpspec.js']
 
     # CoffeeScript compilation
     coffee:
@@ -76,7 +91,6 @@ module.exports = ->
           detailedError: true
 
   # Grunt plugins used for building
-  @loadNpmTasks 'grunt-noflo-manifest'
   @loadNpmTasks 'grunt-noflo-browser'
   @loadNpmTasks 'grunt-contrib-coffee'
   @loadNpmTasks 'grunt-contrib-uglify'
@@ -101,6 +115,7 @@ module.exports = ->
     @task.run "build:#{target}"
     if target is 'all' or target is 'browser'
       @task.run 'coffee'
+      @task.run 'noflo_browser_mocha'
       @task.run 'mocha_phantomjs'
 
   @registerTask 'crossbrowser', 'Run tests on real browsers', ['test', 'connect', 'saucelabs-mocha']
