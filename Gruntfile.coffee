@@ -3,18 +3,11 @@ module.exports = ->
   @initConfig
     pkg: @file.readJSON 'package.json'
 
-    # Updating the package manifest files
-    noflo_manifest:
-      update:
-        files:
-          'component.json': ['graphs/*', 'components/*']
-          'package.json': ['graphs/*', 'components/*']
-
     # Browser build of NoFlo
     noflo_browser:
       build:
         files:
-          'browser/noflo-dom.js': ['component.json']
+          'browser/noflo-dom.js': ['package.json']
 
     # CoffeeScript compilation
     coffee:
@@ -99,16 +92,14 @@ module.exports = ->
 
   # Our local tasks
   @registerTask 'build', 'Build NoFlo for the chosen target platform', (target = 'all') =>
-    @task.run 'noflo_manifest'
     if target is 'all' or target is 'browser'
       @task.run 'noflo_browser'
       @task.run 'uglify'
 
   @registerTask 'test', 'Build NoFlo and run automated tests', (target = 'all') =>
     @task.run 'coffeelint'
-    @task.run 'noflo_manifest'
+    @task.run "build:#{target}"
     if target is 'all' or target is 'browser'
-      @task.run 'noflo_browser'
       @task.run 'coffee'
       @task.run 'mocha_phantomjs'
 
