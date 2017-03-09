@@ -2,24 +2,16 @@ noflo = require 'noflo'
 
 # @runtime noflo-browser
 
-class AddClass extends noflo.Component
-  description: 'Add a class to an element'
-  constructor: ->
-    @element = null
-    @class = null
-    @inPorts =
-      element: new noflo.Port 'object'
-      class: new noflo.Port 'string'
-    @outPorts = {}
+exports.getComponent = ->
+  c = new noflo.Component
+  c.description = 'Add a class to an element'
+  c.inPorts.add 'element',
+    datatype: 'object'
+  c.inPorts.add 'class',
+    datatype: 'string'
 
-    @inPorts.element.on 'data', (data) =>
-      @element = data
-      do @addClass if @class
-    @inPorts.class.on 'data', (data) =>
-      @class = data
-      do @addClass if @element
-
-  addClass: ->
-    @element.classList.add @class
-
-exports.getComponent = -> new AddClass
+  c.process (input, output) ->
+    return unless input.has 'element', 'class'
+    [element, className] = input.getData 'element', 'class'
+    element.classList.add className
+    output.done()

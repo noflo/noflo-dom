@@ -2,17 +2,20 @@ noflo = require 'noflo'
 
 # @runtime noflo-browser
 
-class CreateFragment extends noflo.Component
-  description: 'Create a new DOM DocumentFragment'
-  constructor: ->
-    @inPorts =
-      in: new noflo.Port 'bang'
-    @outPorts =
-      fragment: new noflo.Port 'object'
+exports.getComponent = ->
+  c = new noflo.Component
+  c. description = 'Create a new DOM DocumentFragment'
+  c.inPorts.add 'in',
+    datatype: 'bang'
+  c.outPorts.add 'fragment',
+    datatype: 'object'
 
-    @inPorts.in.on 'data', =>
-      @outPorts.fragment.send document.createDocumentFragment()
-    @inPorts.in.on 'disconnect', =>
-      @outPorts.fragment.disconnect()
+  c.forwardBrackets =
+    in: ['fragment']
 
-exports.getComponent = -> new CreateFragment
+  c.process (input, output) ->
+    return unless input.hasData 'in'
+    input.getData 'in'
+    fragment = document.createDocumentFragment()
+    output.sendDone
+      fragment: fragment
