@@ -1,7 +1,7 @@
 {
   "name": "noflo-dom",
   "description": "Document Object Model components for NoFlo",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "author": {
     "name": "Henri Bergius",
     "email": "henri.bergius@iki.fi"
@@ -38,22 +38,6 @@
     "test": "grunt test"
   },
   "noflo": {
-    "icon": "html5",
-    "components": {
-      "AddClass": "components/AddClass.coffee",
-      "AppendChild": "components/AppendChild.coffee",
-      "CreateElement": "components/CreateElement.coffee",
-      "CreateFragment": "components/CreateFragment.coffee",
-      "GetAttribute": "components/GetAttribute.coffee",
-      "GetElement": "components/GetElement.coffee",
-      "HasClass": "components/HasClass.coffee",
-      "Listen": "components/Listen.coffee",
-      "ReadHtml": "components/ReadHtml.coffee",
-      "RemoveClass": "components/RemoveClass.coffee",
-      "RemoveElement": "components/RemoveElement.coffee",
-      "RequestAnimationFrame": "components/RequestAnimationFrame.coffee",
-      "SetAttribute": "components/SetAttribute.coffee",
-      "WriteHtml": "components/WriteHtml.coffee"
-    }
+    "icon": "html5"
   }
 }
