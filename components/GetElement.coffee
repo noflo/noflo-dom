@@ -2,43 +2,45 @@ noflo = require 'noflo'
 
 # @runtime noflo-browser
 
-class GetElement extends noflo.Component
-  description: 'Get a DOM element matching a query'
-  constructor: ->
-    @container = null
-
-    @inPorts =
-      in: new noflo.Port 'object'
-      selector: new noflo.Port 'string'
-    @outPorts =
-      element: new noflo.Port 'object'
-      error: new noflo.Port 'object'
-
-    @inPorts.in.on 'data', (data) =>
-      unless typeof data.querySelector is 'function'
-        @error 'Given container doesn\'t support querySelectors'
+exports.getComponent = ->
+  c = new noflo.Component
+  c.description ='Get a DOM element matching a query'
+  c.inPorts.add 'in',
+    datatype: 'object'
+    description: 'DOM element to constrain the query to'
+  c.inPorts.add 'selector',
+    datatype: 'string'
+    description: 'CSS selector'
+  c.outPorts.add 'element',
+    datatype: 'object'
+  c.outPorts.add 'error',
+    datatype: 'object'
+  c.forwardBrackets =
+    selector: ['element', 'error']
+  c.process (input, output) ->
+    return unless input.hasData 'selector'
+    return unless input.hasData 'in' if input.attached('in').length > 0
+    if input.hasData 'in'
+      # Element-scoped selector
+      [container, selector] = input.getData 'in', 'selector'
+      unless typeof container.querySelector is 'function'
+        output.done new Error 'Given container doesn\'t support querySelectors'
         return
-      @container = data
-
-    @inPorts.selector.on 'data', (data) =>
-      @select data
-
-  select: (selector) ->
-    if @container
-      el = @container.querySelectorAll selector
-    else
-      el = document.querySelectorAll selector
+      el = container.querySelectorAll selector
+      unless el.length
+        output.done new Error "No element matching '#{selector}' found under container"
+        return
+      for element in el
+        output.send
+          element: element
+      output.done()
+      return
+    selector = input.getData 'selector'
+    el = document.querySelectorAll selector
     unless el.length
-      @error "No element matching '#{selector}' found"
+      output.done new Error "No element matching '#{selector}' found under document"
       return
-    @outPorts.element.send element for element in el
-    @outPorts.element.disconnect()
-
-  error: (msg) ->
-    if @outPorts.error.isAttached()
-      @outPorts.error.send new Error msg
-      @outPorts.error.disconnect()
-      return
-    throw new Error msg
-
-exports.getComponent = -> new GetElement
+    for element in el
+      output.send
+        element: element
+    output.done()

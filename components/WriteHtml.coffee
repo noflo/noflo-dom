@@ -2,31 +2,18 @@ noflo = require 'noflo'
 
 # @runtime noflo-browser
 
-class WriteHtml extends noflo.Component
-  description: 'Write HTML inside an existing element'
-  constructor: ->
-    @container = null
-    @html = null
-
-    @inPorts =
-      html: new noflo.Port 'string'
-      container: new noflo.Port 'object'
-    @outPorts =
-      container: new noflo.Port 'object'
-
-    @inPorts.html.on 'data', (data) =>
-      @html = data
-      do @writeHtml if @container
-    @inPorts.container.on 'data', (data) =>
-      @container = data
-      do @writeHtml unless @html is null
-
-  writeHtml: ->
-    @container.innerHTML = @html
-    @html = null
-
-    if @outPorts.container.isAttached()
-      @outPorts.container.send @container
-      @outPorts.container.disconnect()
-
-exports.getComponent = -> new WriteHtml
+exports.getComponent = ->
+  c = new noflo.Component
+  c.description = 'Write HTML inside an existing element'
+  c.inPorts.add 'container',
+    datatype: 'object'
+  c.inPorts.add 'html',
+    datatype: 'string'
+  c.outPorts.add 'container',
+    datatype: 'object'
+  c.process (input, output) ->
+    return unless input.hasData 'container', 'html'
+    [container, html] = input.getData 'container', 'html'
+    container.innerHTML = html
+    output.sendDone
+      container: container

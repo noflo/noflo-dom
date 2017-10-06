@@ -1,5 +1,3 @@
-'use strict'
-
 noflo = require 'noflo'
 
 # @runtime noflo-browser
@@ -19,21 +17,20 @@ exports.getComponent = ->
     datatype: 'string'
     description: 'The attribute which is read from the DOM element.'
     required: true
+    control: true
 
   # Define out ports.
   c.outPorts.add 'out',
     datatype: 'string'
     description: 'Value of the attribute being read.'
 
-  # On data flow.
-  noflo.helpers.WirePattern c,
-    in: ['element']
-    out: ['out']
-    params: ['attribute']
-    forwardGroups: true
-  ,
-    (data, groups, out) ->
-      attr = c.params.attribute
-      value = data.getAttribute attr
+  c.forwardBrackets =
+    element: ['out']
 
-      out.send value
+  # On data flow.
+  c.process (input, output) ->
+    return unless input.hasData 'element', 'attribute'
+    [element, attribute] = input.getData 'element', 'attribute'
+    value = element.getAttribute attribute
+    output.sendDone
+      out: value

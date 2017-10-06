@@ -13,12 +13,10 @@ exports.getComponent = ->
   c.inPorts.add 'element',
     datatype: 'object'
     description: 'The element on which to set the attribute.'
-    required: true
 
   c.inPorts.add 'attribute',
     datatype: 'string'
     description: 'The attribute which is set on the DOM element.'
-    required: true
 
   c.inPorts.add 'value',
     datatype: 'string'
@@ -29,27 +27,24 @@ exports.getComponent = ->
     datatype: 'object'
     description: 'The element that was updated.'
 
-  # On data flow.
-  noflo.helpers.WirePattern c,
-    in: ['element', 'value']
-    out: ['element']
-    params: ['attribute']
-    forwardGroups: true
-  ,
-    (data, groups, out) ->
-      attr = c.params.attribute
-      value = data.value
-      if typeof value is 'object'
-        if toString.call(value) is '[object Array]'
-          value = value.join ' '
-        else
-          newVal = []
-          newVal.push val for key, val of value
-          value = newVal.join ' '
-      if attr == "value"
-        data.element.value = value
-      else
-        data.element.setAttribute attr, value
+  c.forwardBrackets =
+    element: ['element']
+    value: ['element']
 
-      out.send data.element
-  
+  c.process (input, output) ->
+    return unless input.hasData 'element', 'attribute', 'value'
+    [element, attribute, value] = input.getData 'element', 'attribute', 'value'
+    if typeof value is 'object'
+      if toString.call(value) is '[object Array]'
+        value = value.join ' '
+      else
+        newVal = []
+        newVal.push val for key, val of value
+        value = newVal.join ' '
+    if attribute is "value"
+      element.value = value
+    else
+      element.setAttribute attribute, value
+
+    output.sendDone
+      element: element

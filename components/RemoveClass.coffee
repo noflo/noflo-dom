@@ -2,24 +2,16 @@ noflo = require 'noflo'
 
 # @runtime noflo-browser
 
-class RemoveClass extends noflo.Component
-  description: 'Remove a class from an element'
-  constructor: ->
-    @element = null
-    @class = null
-    @inPorts =
-      element: new noflo.Port 'object'
-      class: new noflo.Port 'string'
-    @outPorts = {}
+exports.getComponent = ->
+  c = new noflo.Component
+  c.description = 'Remove a class from an element'
+  c.inPorts.add 'element',
+    datatype: 'object'
+  c.inPorts.add 'class',
+    datatype: 'string'
 
-    @inPorts.element.on 'data', (data) =>
-      @element = data
-      do @removeClass if @class
-    @inPorts.class.on 'data', (data) =>
-      @class = data
-      do @removeClass if @element
-
-  removeClass: ->
-    @element.classList.remove @class
-
-exports.getComponent = -> new RemoveClass
+  c.process (input, output) ->
+    return unless input.has 'element', 'class'
+    [element, className] = input.getData 'element', 'class'
+    element.classList.remove className
+    output.done()

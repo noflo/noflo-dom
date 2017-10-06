@@ -2,29 +2,16 @@ noflo = require 'noflo'
 
 # @runtime noflo-browser
 
-class AppendChild extends noflo.Component
-  description: 'Append elements as children of a parent element'
-  constructor: ->
-    @parent = null
-    @children = []
-    @inPorts =
-      parent: new noflo.Port 'object'
-      child: new noflo.Port 'object'
-    @outPorts = {}
+exports.getComponent = ->
+  c = new noflo.Component
+  c.description = 'Append elements as children of a parent element'
+  c.inPorts.add 'parent',
+    datatype: 'object'
+  c.inPorts.add 'child',
+    datatype: 'object'
 
-    @inPorts.parent.on 'data', (data) =>
-      @parent = data
-      do @append if @children.length
-
-    @inPorts.child.on 'data', (data) =>
-      unless @parent
-        @children.push data
-        return
-      @parent.appendChild data
-
-  append: ->
-    for child in @children
-      @parent.appendChild child
-    @children = []
-
-exports.getComponent = -> new AppendChild
+  c.process (input, output) ->
+    return unless input.hasData 'parent', 'child'
+    [parent, child] = input.getData 'parent', 'child'
+    parent.appendChild child
+    output.done()

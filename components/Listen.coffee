@@ -2,61 +2,55 @@ noflo = require 'noflo'
 
 # @runtime noflo-browser
 
-class Listen extends noflo.Component
-  description: 'addEventListener for specified event type'
-  icon: 'stethoscope'
+exports.getComponent = ->
+  c = new noflo.Component
+  c.description = 'addEventListener for specified event type'
+  c.icon = 'stethoscope'
 
-  constructor: ->
-    @element = null
-    @type = null
-    @preventDefault = false
+  c.inPorts.add 'element',
+    datatype: 'object'
+  c.inPorts.add 'type',
+    datatype: 'string'
+  c.inPorts.add 'preventdefault',
+    datatype: 'boolean'
+    control: true
+    default: false
+  c.outPorts.add 'element',
+    datatype: 'object'
+  c.outPorts.add 'event',
+    datatype: 'object'
 
-    @inPorts =
-      element: new noflo.Port 'object'
-      type: new noflo.Port 'string'
-      preventdefault: new noflo.Port 'boolean'
-    @outPorts =
-      element: new noflo.Port 'object'
-      event: new noflo.Port 'object'
+  c.elements = {}
+  cleanUp = (scope) ->
+    return unless c.elements[scope]
+    {element, event, listener} = c.elements[scope]
+    element.removeEventListener event, listener
+    c.elements[scope].deactivate()
+    delete c.elements[scope]
+  c.tearDown = (callback) ->
+    for scope, element of c.elements
+      cleanUp scope
+    c.elements = {}
+    callback()
 
-    @inPorts.element.on 'data', (data) =>
-      if @element and @type
-        @unsubscribe @element, @type
+  c.process (input, output, context) ->
 
-      @element = data
+    return unless input.hasData 'element', 'type'
+    [element, type] = input.getData 'element', 'type'
 
-      if @type
-        @subscribe @element, @type
+    preventDefault = false
+    if input.hasData 'preventdefault'
+      preventDefault = input.getData 'preventdefault'
 
-    @inPorts.type.on 'data', (data) =>
-      if @element and @type
-        @unsubscribe @element, @type
+    scope = null
+    cleanUp scope
 
-      @type = data
-
-      if @element
-        @subscribe @element, @type
-
-    @inPorts.preventdefault.on 'data', (data) =>
-      @preventDefault = data
-
-  unsubscribe: (element, type) ->
-    element.removeEventListener type, @change
-
-  subscribe: (element, type) ->
-    element.addEventListener type, @change
-
-  change: (event) =>
-    if @preventDefault
-      event.preventDefault()
-    if @outPorts.element.isAttached()
-      @outPorts.element.send @element
-    if @outPorts.event.isAttached()
-      @outPorts.event.send event
-
-  shutdown: ->
-    return unless @element
-    return unless @type
-    @unsubscribe @element, @type
-
-exports.getComponent = -> new Listen
+    context.element = element
+    context.event = type
+    context.listener = (event) ->
+      event.preventDefault() if preventDefault
+      output.send
+        element: context.element
+        event: event
+    c.elements[context] = context
+    element.addEventListener type, context.listener

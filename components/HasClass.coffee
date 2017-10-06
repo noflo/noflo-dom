@@ -2,34 +2,23 @@ noflo = require 'noflo'
 
 # @runtime noflo-browser
 
-class HasClass extends noflo.Component
-  description: 'Check if an element has a given class'
-  constructor: ->
-    @element = null
-    @class = null
-    @inPorts =
-      element: new noflo.Port 'object'
-      class: new noflo.Port 'string'
-    @outPorts =
-      element: new noflo.Port 'object'
-      missed: new noflo.Port 'object'
-
-    @inPorts.element.on 'data', (data) =>
-      @element = data
-      do @checkClass if @class
-    @inPorts.element.on 'disconnect', =>
-      @outPorts.element.disconnect()
-      return unless @outPorts.missed.isAttached()
-      @outPorts.missed.disconnect()
-    @inPorts.class.on 'data', (data) =>
-      @class = data
-      do @checkClass if @element
-
-  checkClass: ->
-    if @element.classList.contains @class
-      @outPorts.element.send @element
+exports.getComponent = ->
+  c = new noflo.Component
+  c.description = 'Check if an element has a given class'
+  c.inPorts.add 'element',
+    datatype: 'object'
+  c.inPorts.add 'class',
+    datatype: 'string'
+  c.outPorts.add 'element',
+    datatype: 'object'
+  c.outPorts.add 'missed',
+    datatype: 'object'
+  c.process (input, output) ->
+    return unless input.hasData 'element', 'class'
+    [element, klass] = input.getData 'element', 'class'
+    if element.classList.contains klass
+      output.sendDone
+        element: element
       return
-    return unless @outPorts.missed.isAttached()
-    @outPorts.missed.send @element
-
-exports.getComponent = -> new HasClass
+    output.sendDone
+      missed: element

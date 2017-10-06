@@ -2,34 +2,29 @@ noflo = require 'noflo'
 
 # @runtime noflo-browser
 
-class CreateElement extends noflo.Component
-  description: 'Create a new DOM Element'
-  constructor: ->
-    @tagName = null
-    @container = null
-    @inPorts =
-      tagname: new noflo.Port 'string'
-      container: new noflo.Port 'object'
-    @outPorts =
-      element: new noflo.Port 'object'
+exports.getComponent = ->
+  c = new noflo.Component
+  c.description = 'Create a new DOM Element'
+  c.inPorts.add 'tagname',
+    datatype: 'string'
+  c.inPorts.add 'container',
+    datatype: 'object'
+  c.outPorts.add 'element',
+    datatype: 'object'
+  c.forwardBrackets =
+    tagname: ['element']
 
-    @inPorts.tagname.on 'data', (@tagName) =>
-      do @createElement
-    @inPorts.tagname.on 'disconnect', =>
-      unless @inPorts.container.isAttached()
-        @outPorts.element.disconnect()
-    @inPorts.container.on 'data', (@container) =>
-      do @createElement
-    @inPorts.container.on 'disconnect', =>
-      @outPorts.element.disconnect()
+  c.process (input, output) ->
+    return unless input.hasData 'tagname'
+    if c.inPorts.container.isAttached()
+      # If container is attached, we want it too
+      return unless input.hasData 'container'
 
-  createElement: ->
-    return unless @tagName
-    if @inPorts.container.isAttached()
-      return unless @container
-    el = document.createElement @tagName
-    if @container
-      @container.appendChild el
-    @outPorts.element.send el
+    tagname = input.getData 'tagname'
+    element = document.createElement tagname
+    if input.hasData 'container'
+      container = input.getData 'container'
+      container.appendChild element
 
-exports.getComponent = -> new CreateElement
+    output.sendDone
+      element: element
