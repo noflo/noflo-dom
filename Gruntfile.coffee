@@ -58,7 +58,11 @@ module.exports = ->
 
     # Coding standards
     coffeelint:
-      components: ['components/*.coffee']
+      components:
+        options:
+          max_line_length:
+            level: "ignore"
+        src: ['components/*.coffee']
 
     # Cross-browser testing
     connect:
