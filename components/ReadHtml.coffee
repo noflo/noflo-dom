@@ -2,16 +2,17 @@ noflo = require 'noflo'
 
 # @runtime noflo-browser
 
-class ReadHtml extends noflo.Component
-  description: 'Read HTML from an existing element'
-  constructor: ->
-    @inPorts =
-      container: new noflo.Port 'object'
-    @outPorts =
-      html: new noflo.Port 'string'
-
-    @inPorts.container.on 'data', (data) =>
-      @outPorts.html.send data.innerHTML
-      @outPorts.html.disconnect()
-
-exports.getComponent = -> new ReadHtml
+exports.getComponent = ->
+  c = new noflo.Component
+  c.description = 'Read HTML from an existing element'
+  c.inPorts.add 'container',
+    datatype: 'object'
+  c.outPorts.add 'html',
+    datatype: 'string'
+  c.forwardBrackets =
+    container: ['html']
+  c.process (input, output) ->
+    return unless input.hasData 'container'
+    container = input.getData 'container'
+    output.sendDone
+      html: container.innerHTML
