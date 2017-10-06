@@ -12,15 +12,14 @@ describe 'GetElement component', ->
     loader.load 'dom/GetElement', (err, instance) ->
       return done err if err
       c = instance
-      ins = noflo.internalSocket.createSocket()
       selector = noflo.internalSocket.createSocket()
-      c.inPorts.in.attach ins
       c.inPorts.selector.attach selector
       done()
   beforeEach ->
     element = noflo.internalSocket.createSocket()
     c.outPorts.element.attach element
     error = noflo.internalSocket.createSocket()
+    c.outPorts.error.attach error
   afterEach ->
     c.outPorts.element.detach element
     element = null
@@ -28,39 +27,44 @@ describe 'GetElement component', ->
     error = null
 
   describe 'with non-matching query', ->
-    it 'should throw an error when ERROR port is not attached', ->
-      chai.expect(-> selector.send 'Foo').to.throw Error
     it 'should transmit an Error when ERROR port is attached', (done) ->
       error.on 'data', (data) ->
         chai.expect(data).to.be.an.instanceof Error
         done()
-      c.outPorts.error.attach error
       selector.send 'Foo'
 
   describe 'with invalid query', ->
-    it 'should throw an error when ERROR port is not attached', ->
-      chai.expect(-> ins.send {}).to.throw Error
+    before ->
+      ins = noflo.internalSocket.createSocket()
+      c.inPorts.in.attach ins
+    after ->
+      c.inPorts.in.detach ins
     it 'should transmit an Error when ERROR port is attached', (done) ->
       error.on 'data', (data) ->
         chai.expect(data).to.be.an.instanceof Error
         done()
-      c.outPorts.error.attach error
+      selector.send 'baz'
       ins.send {}
 
   describe 'with invalid container', ->
-    it 'should throw an error when ERROR port is not attached', ->
-      chai.expect(-> ins.send {}).to.throw Error
+    before ->
+      ins = noflo.internalSocket.createSocket()
+      c.inPorts.in.attach ins
+    after ->
+      c.inPorts.in.detach ins
     it 'should transmit an Error when ERROR port is attached', (done) ->
       error.on 'data', (data) ->
         chai.expect(data).to.be.an.instanceof Error
         done()
-      c.outPorts.error.attach error
+      selector.send 'baz'
       ins.send {}
 
   describe 'with matching query without container', ->
     it 'should send the matched element to the ELEMENT port', (done) ->
       query = '#fixtures .getelement'
       el = document.querySelector query
+      error.on 'data', (data) ->
+        done data
       element.on 'data', (data) ->
         chai.expect(data.tagName).to.exist
         chai.expect(data.tagName).to.equal 'DIV'
@@ -70,9 +74,16 @@ describe 'GetElement component', ->
       selector.send query
 
   describe 'with matching query with container', ->
+    before ->
+      ins = noflo.internalSocket.createSocket()
+      c.inPorts.in.attach ins
+    after ->
+      c.inPorts.in.detach ins
     it 'should send the matched element to the ELEMENT port', (done) ->
       container = document.querySelector '#fixtures'
       el = document.querySelector '#fixtures .getelement'
+      error.on 'data', (data) ->
+        done data
       element.on 'data', (data) ->
         chai.expect(data.tagName).to.exist
         chai.expect(data.tagName).to.equal 'DIV'
