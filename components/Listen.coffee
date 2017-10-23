@@ -32,6 +32,7 @@ exports.getComponent = ->
       cleanUp scope
     c.elements = {}
     callback()
+  c.forwardBrackets = {}
 
   c.process (input, output, context) ->
 
