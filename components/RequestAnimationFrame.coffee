@@ -43,6 +43,7 @@ exports.getComponent = ->
     # Request next frame
     requestAnimationFrame c.animate.bind c, scope, output
 
+  c.forwardBrackets = {}
   c.process (input, output, context) ->
     if input.hasData 'start'
       start = input.get 'start'
