@@ -1,7 +1,7 @@
 {
   "name": "noflo-dom",
   "description": "Document Object Model components for NoFlo",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "author": {
     "name": "Henri Bergius",
     "email": "henri.bergius@iki.fi"
